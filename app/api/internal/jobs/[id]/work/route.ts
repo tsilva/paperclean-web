@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { db } from "@/lib/db";
 import { jobs } from "@/lib/db/schema";
-import { requiredEnv } from "@/lib/env";
+import { featureFlags, requiredEnv } from "@/lib/env";
 import { verifyPayloadSignature } from "@/lib/jobs/signatures";
 
 const requestSchema = z.object({ action: z.enum(["inspect", "process"]) });
@@ -18,6 +18,12 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   try {
     const { id } = await params;
     const { action } = requestSchema.parse(JSON.parse(body));
+    if (action === "process" && !featureFlags.conversion) {
+      return Response.json(
+        { error: "Document conversion is temporarily unavailable" },
+        { status: 503 },
+      );
+    }
     const [job] = await db().select().from(jobs).where(eq(jobs.id, id)).limit(1);
     if (!job) return Response.json({ error: "Job not found" }, { status: 404 });
     const allowed = action === "inspect" ? job.status === "inspecting" : job.status === "queued";

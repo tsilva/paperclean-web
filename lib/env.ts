@@ -3,6 +3,7 @@ import { z } from "zod";
 const nonEmpty = z.string().trim().min(1);
 
 export const featureFlags = {
+  conversion: process.env.PAPERCLEAN_CONVERSION_ENABLED === "true",
   clerk: Boolean(
     process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY,
   ),

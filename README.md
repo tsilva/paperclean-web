@@ -32,6 +32,8 @@ cp .env.example .env.local
 pnpm db:migrate
 ```
 
+Real document conversion is disabled by default. Set `PAPERCLEAN_CONVERSION_ENABLED=true` only when the processor is ready to accept live jobs; otherwise the upload card remains an interactive preview and the server rejects process requests before reserving wallet credit or dispatching work.
+
 ## Commands
 
 ```bash
