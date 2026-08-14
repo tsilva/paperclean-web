@@ -1,0 +1,62 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "paperclean-orchestrator",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-14",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "CALLBACK_BASE_URL": "https://paperclean.tsilva.eu",
+    "PROCESSOR_VERSION": "paperclean-web/0.1.0"
+  },
+  "r2_buckets": [
+    {
+      "binding": "PAPERCLEAN_BUCKET",
+      "bucket_name": "paperclean-private"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "PAPERCLEAN_QUEUE",
+        "queue": "paperclean-jobs"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "paperclean-jobs",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_retries": 3,
+        "max_concurrency": 5,
+        "dead_letter_queue": "paperclean-jobs-dlq"
+      }
+    ]
+  },
+  "containers": [
+    {
+      "class_name": "PaperCleanContainer",
+      "image": "../processor/Dockerfile",
+      "image_build_context": "../processor",
+      "max_instances": 5,
+      "instance_type": "basic",
+      "constraints": {
+        "regions": ["WEUR"],
+        "jurisdiction": "eu"
+      }
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "PAPERCLEAN_CONTAINER",
+        "class_name": "PaperCleanContainer"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["PaperCleanContainer"]
+    }
+  ]
+}

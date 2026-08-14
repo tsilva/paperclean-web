@@ -1,0 +1,10 @@
+packages:
+  - .
+  - cloudflare
+
+minimumReleaseAge: 10080
+blockExoticSubdeps: true
+
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
