@@ -16,3 +16,4 @@ processor/.venv
 processor/.pytest_cache
 processor/__pycache__
 processor/**/*.pyc
+processor/src/*.egg-info

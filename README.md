@@ -44,7 +44,9 @@ pnpm typecheck                    # check TypeScript
 pnpm test                         # run the Vitest suite
 pnpm db:migrate                   # apply Drizzle migrations
 pnpm --dir cloudflare typecheck   # check the Cloudflare orchestrator
-(cd processor && uv run ruff check . && PYTHONPATH=src uv run pytest)  # check the processor
+(cd processor && uv lock --config-file uv.toml --check)  # validate the portable lock
+(cd processor && uv audit --frozen && uv run ruff check src tests)  # audit and lint
+(cd processor && PYTHONPATH=src uv run pytest)  # test the processor
 ```
 
 ## Notes
@@ -54,7 +56,7 @@ pnpm --dir cloudflare typecheck   # check the Cloudflare orchestrator
 - Source and result files stay in a private Cloudflare R2 bucket and expire after seven days. Document contents are not stored in Postgres.
 - Cloudflare Queues dispatch work to ephemeral containers with at most five concurrent processors. Page pixels are sent to the configured OpenRouter models for cleaning and verification.
 - The maximum charge is confirmed before processing. Only pages that pass verification are billed; failed or original-fallback pages cost nothing.
-- Full local processor checks also require Python 3.13 or newer and `uv`; run `uv sync --frozen --all-groups` inside `processor/` before the first check.
+- Full local processor checks also require Python 3.13 or newer and `uv`; run `uv sync --config-file uv.toml --frozen --all-groups` inside `processor/` before the first check.
 
 ## Deploy
 
