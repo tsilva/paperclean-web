@@ -20,24 +20,20 @@ PaperClean Web requires Node.js 22 or newer and pnpm 10.
 git clone https://github.com/tsilva/paperclean-web.git
 cd paperclean-web
 pnpm install --frozen-lockfile
-pnpm dev
+pnpm preview:local --port auto
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Without service credentials, the app runs as a clearly labelled interactive preview.
+Open the printed local URL. `preview:local` explicitly clears service credentials and retains the credential-free preview, even when old dotenv files exist.
 
-For the connected app, copy the environment template, add the Clerk, Neon, Stripe, Cloudflare, and job-signing values, then apply the database schema:
-
-```bash
-cp .env.example .env.local
-pnpm db:migrate
-```
+For connected development, run `infisical login --domain https://app.infisical.com`, set development values in Infisical `paperclean-web` → Development → `/`, then run `pnpm dev --port auto`. Root `.infisical.json` pins this project. Values are injected in memory; missing keys cannot fall back to stale dotenv credentials. The local launcher sets the callback URL to its selected localhost port. Database migration is a separate intentional operation; normal development and build do not apply schema changes.
 
 Real document conversion is disabled by default. Set `PAPERCLEAN_CONVERSION_ENABLED=true` only when the processor is ready to accept live jobs; otherwise the upload card remains an interactive preview and the server rejects process requests before reserving wallet credit or dispatching work.
 
 ## Commands
 
 ```bash
-pnpm dev                          # start the local app
+pnpm dev --port auto              # connected Infisical development
+pnpm preview:local --port auto    # credential-free preview
 pnpm build                        # build the production app
 pnpm lint                         # run ESLint
 pnpm typecheck                    # check TypeScript
@@ -60,8 +56,8 @@ pnpm --dir cloudflare typecheck   # check the Cloudflare orchestrator
 
 ## Deploy
 
-1. Connect the repository to Vercel and configure the values in `.env.example`.
-2. Point Clerk and Stripe webhooks at `/api/webhooks/clerk` and `/api/webhooks/stripe`.
+1. Keep production credentials in Infisical `paperclean-web-production` → Production → `/`; automatic sync to Vercel Production is enabled with destination deletion protected. Redeploy after changes. Clerk and Stripe keys and webhook signing secrets are in Infisical. The existing production `PAPERCLEAN_CONVERSION_ENABLED` operational switch remains in Vercel with its original value; changing it requires a ready processor. Provider aliases unused by the app remain untouched.
+2. The production Clerk endpoint is `https://paperclean.tsilva.eu/api/webhooks/clerk`, subscribed to `user.created` and `user.deleted`. The production Clerk instance uses its live key pair; local development uses the test instance. Its old development endpoint pointing at production is disabled. To test automatic delivery locally, configure a separate development endpoint through a reachable local tunnel and store that endpoint's signing secret in Development. Stripe's existing sandbox endpoint remains `/api/webhooks/stripe`; its signing secret is stored in both Infisical environments. Local automatic Stripe delivery requires a separate local listener or tunnel and its own Development signing secret. Payments remain in test mode.
 3. Create the private `paperclean-private` R2 bucket with a seven-day lifecycle, plus the `paperclean-jobs` queue and `paperclean-jobs-dlq`.
 4. Deploy the Cloudflare orchestrator with `pnpm --dir cloudflare deploy`, then configure matching dispatch and callback secrets in Cloudflare and Vercel.
 

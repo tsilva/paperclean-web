@@ -8,14 +8,19 @@
     "node": ">=22"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "python3 scripts/infisical/run.py dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "dev:app": "node scripts/dev-server.mjs next dev",
+    "preview:local": "python3 scripts/infisical/run.py preview",
+    "build:secrets": "python3 scripts/infisical/run.py build",
+    "secrets:check": "python3 scripts/infisical/run.py check",
+    "test:secrets": "python3 -m unittest discover -s scripts/infisical -p test_secrets.py"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1106.0",
@@ -26,7 +31,7 @@
     "@stripe/react-stripe-js": "6.8.0",
     "@stripe/stripe-js": "^9.13.0",
     "drizzle-orm": "^0.45.2",
-    "next": "16.3.0",
+    "next": "16.3.6",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "stripe": "22.4.0",

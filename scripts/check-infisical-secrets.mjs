@@ -1,0 +1,2 @@
+const keys = ["CLERK_SECRET_KEY", "CLERK_WEBHOOK_SIGNING_SECRET", "DATABASE_URL", "STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY", "JOB_DISPATCH_SECRET", "JOB_CALLBACK_SECRET", "CLOUDFLARE_ORIGIN_SECRET"];
+for(const key of keys)console.log(`${key}: ${process.env[key]?'present':'absent'}`);
