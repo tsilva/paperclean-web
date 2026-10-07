@@ -1,10 +1,12 @@
-<div align="center">
+<p align="center">
   <img src="./logo.png" alt="PaperClean" width="300" />
+  <br />
+  <!-- repo-tagline:start -->
+  <strong>🧹 Clean scans. Verified content 🧹</strong>
+  <!-- repo-tagline:end -->
+</p>
 
-  **🧹 Clean scans. Verified content. 🧹**
-
-  [Live Demo](https://paperclean.tsilva.eu)
-</div>
+[Live Demo](https://paperclean.tsilva.eu)
 
 PaperClean Web is a pay-as-you-go web app for people who need clean PDFs or images from document photos and poor scans without silently accepting changed content. Upload one PDF, JPEG, or PNG, review the maximum charge, and download the verified result; pages that fail verification fall back safely and are not billed.
 
