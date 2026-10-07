@@ -8,3 +8,15 @@ blockExoticSubdeps: true
 onlyBuiltDependencies:
   - esbuild
   - sharp
+
+overrides:
+  "@esbuild-kit/core-utils>esbuild": 0.25.12
+  "miniflare>undici": 7.29.1
+  sharp: 0.35.5
+  "@next/eslint-plugin-next>fast-glob": npm:tinyglobby@0.2.15
+  source-map-js: 1.2.2
+  "undici@>=7 <7.29.1": 7.29.1
+
+# User-approved exception for this security patch only.
+minimumReleaseAgeExclude:
+  - source-map-js@1.2.2
