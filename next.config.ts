@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  distDir: process.env.NEXT_DEV_OUTPUT_DIR || ".next",
   async headers() {
     return [
       {

@@ -1,10 +1,12 @@
-<div align="center">
+<p align="center">
   <img src="./logo.png" alt="PaperClean" width="300" />
+  <br />
+  <!-- repo-tagline:start -->
+  <strong>🧹 Clean scans. Verified content 🧹</strong>
+  <!-- repo-tagline:end -->
+</p>
 
-  **🧹 Clean scans. Verified content. 🧹**
-
-  [Live Demo](https://paperclean.tsilva.eu)
-</div>
+[Live Demo](https://paperclean.tsilva.eu)
 
 PaperClean Web is a pay-as-you-go web app for people who need clean PDFs or images from document photos and poor scans without silently accepting changed content. Upload one PDF, JPEG, or PNG, review the maximum charge, and download the verified result; pages that fail verification fall back safely and are not billed.
 
@@ -20,24 +22,18 @@ PaperClean Web requires Node.js 22 or newer and pnpm 10.
 git clone https://github.com/tsilva/paperclean-web.git
 cd paperclean-web
 pnpm install --frozen-lockfile
-pnpm dev
+pnpm preview:local --port auto
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Without service credentials, the app runs as a clearly labelled interactive preview.
-
-For the connected app, copy the environment template, add the Clerk, Neon, Stripe, Cloudflare, and job-signing values, then apply the database schema:
-
-```bash
-cp .env.example .env.local
-pnpm db:migrate
-```
+Open the printed local URL. `preview:local` explicitly clears service credentials and retains the credential-free preview, even when old dotenv files exist.
 
 Real document conversion is disabled by default. Set `PAPERCLEAN_CONVERSION_ENABLED=true` only when the processor is ready to accept live jobs; otherwise the upload card remains an interactive preview and the server rejects process requests before reserving wallet credit or dispatching work.
 
 ## Commands
 
 ```bash
-pnpm dev                          # start the local app
+pnpm dev --port auto
+pnpm preview:local --port auto    # credential-free preview
 pnpm build                        # build the production app
 pnpm lint                         # run ESLint
 pnpm typecheck                    # check TypeScript
@@ -60,8 +56,6 @@ pnpm --dir cloudflare typecheck   # check the Cloudflare orchestrator
 
 ## Deploy
 
-1. Connect the repository to Vercel and configure the values in `.env.example`.
-2. Point Clerk and Stripe webhooks at `/api/webhooks/clerk` and `/api/webhooks/stripe`.
 3. Create the private `paperclean-private` R2 bucket with a seven-day lifecycle, plus the `paperclean-jobs` queue and `paperclean-jobs-dlq`.
 4. Deploy the Cloudflare orchestrator with `pnpm --dir cloudflare deploy`, then configure matching dispatch and callback secrets in Cloudflare and Vercel.
 

@@ -48,7 +48,7 @@ describe("dependency security floors", () => {
     const undiciEntry = requireFromWorker.resolve("undici");
     const { Headers } = await import(pathToFileURL(undiciEntry).href);
     expect(versionTuple(installedVersion(requireFromWorker, "undici"))).toEqual([
-      7, 29, 0,
+      7, 29, 1,
     ]);
     expect(() => new Headers({ "x-safe": "ok\r\nInjected: true" })).toThrow();
     expect(new Headers({ "x-safe": "ok" }).get("x-safe")).toBe("ok");

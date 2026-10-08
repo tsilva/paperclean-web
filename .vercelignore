@@ -18,4 +18,8 @@ processor/__pycache__
 processor/**/*.pyc
 processor/src/*.egg-info
 
+.git/
+**/.env*
+!**/.env.example
 .next-dev-*/
+**/.venv/

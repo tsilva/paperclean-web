@@ -1,0 +1,21 @@
+{
+  "repository": "tsilva/paperclean-web",
+  "githubRepositoryId": 1334242277,
+  "identityId": "672c01c3-c025-40f9-b89b-5abcc03e8261",
+  "infisicalProjectId": "cdcb608b-f3c1-442b-82c6-c971af61bfad",
+  "secretNames": [
+    "ASSET_RETENTION_SECONDS",
+    "CLERK_SECRET_KEY",
+    "CLERK_WEBHOOK_SIGNING_SECRET",
+    "DATABASE_URL",
+    "NEXT_PUBLIC_APP_URL",
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET"
+  ],
+  "destination": "vercel",
+  "vercelProjectId": "prj_stGKNmevpjNfWlCMH8vS1Y3prnFM",
+  "vercelProjectName": "paperclean-web",
+  "vercelTeamId": "team_eE2Iv7IMqPOx8ZVN2xNfR2f0"
+}
