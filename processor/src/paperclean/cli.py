@@ -221,8 +221,10 @@ def _confirm(projection: CostProjection, *, yes: bool) -> None:
         Text.assemble(
             ("INSUFFICIENT CREDITS  ", "bold white on red"),
             (
-                f"  {_money(available)} available; "
-                f"{_money(required)} required for the recovery ceiling.",
+                (
+                    f"  {_money(available)} available; "
+                    f"{_money(required)} required for the recovery ceiling."
+                ),
                 "bold red",
             ),
         )
@@ -309,7 +311,8 @@ def _process_documents(
                         fatal = exc
                 stop.set()
                 return
-            except BaseException as exc:
+            # Propagate worker cancellation and fatal errors to the coordinating thread.
+            except BaseException as exc:  # noqa: BLE001
                 with cursor_lock:
                     if fatal is None:
                         fatal = exc

@@ -19,8 +19,8 @@ from pathlib import Path
 from typing import Any
 
 from PIL import Image
-from paperclean.pdfs import page_count
 
+from paperclean.pdfs import page_count
 from paperclean_processor import __version__
 
 MAX_BYTES = 100 * 1024 * 1024
@@ -120,13 +120,13 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-    def do_GET(self) -> None:  # noqa: N802
+    def do_GET(self) -> None:
         if self.path == "/health":
             self._json(HTTPStatus.OK, {"ok": True, "version": __version__})
         else:
             self._json(HTTPStatus.NOT_FOUND, {"error": "not found"})
 
-    def do_POST(self) -> None:  # noqa: N802
+    def do_POST(self) -> None:
         if self.path not in {"/inspect", "/process"}:
             self._json(HTTPStatus.NOT_FOUND, {"error": "not found"})
             return
@@ -157,7 +157,8 @@ class Handler(BaseHTTPRequestHandler):
             self._json(HTTPStatus.BAD_REQUEST, {"error": str(error)})
         except subprocess.TimeoutExpired:
             self._json(HTTPStatus.GATEWAY_TIMEOUT, {"error": "job exceeded the processing limit"})
-        except Exception as error:  # defensive container boundary
+        # Keep unexpected failures inside the HTTP boundary; expose no exception content.
+        except Exception as error:  # noqa: BLE001
             self.log_error("job failed: %s", type(error).__name__)
             self._json(HTTPStatus.INTERNAL_SERVER_ERROR, {"error": "processing failed safely"})
 

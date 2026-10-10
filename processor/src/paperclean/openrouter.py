@@ -10,7 +10,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
 from email.utils import parsedate_to_datetime
-from typing import Any, Literal, cast
+from typing import Any, Literal, Self, cast
 
 import httpx
 from PIL import Image
@@ -221,7 +221,7 @@ class Endpoint:
 class CostTracker:
     def __init__(self, limit: Decimal | None) -> None:
         self.limit = limit
-        self.total = Decimal("0")
+        self.total = Decimal(0)
         self.ambiguous_timeouts = 0
         self.prompt_tokens = 0
         self.completion_tokens = 0
@@ -310,7 +310,7 @@ class OpenRouterClient:
         self.image_endpoint: Endpoint | None = None
         self.review_endpoint: Endpoint | None = None
 
-    def __enter__(self) -> OpenRouterClient:
+    def __enter__(self) -> Self:
         return self
 
     def __exit__(self, *_: object) -> None:
@@ -535,7 +535,7 @@ class OpenRouterClient:
         used = self._metadata_decimal(data.get("total_usage"), "credit")
         if total is None or used is None:
             return None
-        return max(Decimal("0"), total - used)
+        return max(Decimal(0), total - used)
 
     def _key_remaining(self) -> tuple[Decimal | None, bool]:
         response = self._optional_metadata("/key")

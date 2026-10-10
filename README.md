@@ -49,6 +49,8 @@ pnpm --dir cloudflare typecheck   # check the Cloudflare orchestrator
 
 On rewritten push history, secret scanning scans the full reachable branch history when the previous head is unavailable or no longer an ancestor. Pull-request ranges still require a valid base. Run `python3 .github/scripts/test_secret_scan.py` to verify scan-scope handling.
 
+The processor supports Ruff 0.16 checks. Intentional worker cancellation, malformed-PDF conversion, and HTTP error boundaries retain broad exception handling; HTTP responses and logs expose no exception content.
+
 - Each account can run one job at a time. Supported uploads are PDF, JPEG, and PNG files up to 100 MB and 100 pages.
 - Clerk handles sign-in, Stripe funds the USD wallet, and Neon Postgres stores accounts, jobs, page results, and ledger entries.
 - Source and result files stay in a private Cloudflare R2 bucket and expire after seven days. Document contents are not stored in Postgres.

@@ -64,7 +64,8 @@ def _get(dictionary: Any, key: str) -> Any | None:
 def _name(value: Any) -> str:
     try:
         return str(value)
-    except Exception:  # pikepdf can throw on malformed strings
+    # Malformed PDF objects can fail conversion with different exception types.
+    except Exception:  # noqa: BLE001
         return ""
 
 
