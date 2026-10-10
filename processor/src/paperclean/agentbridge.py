@@ -6,7 +6,7 @@ import base64
 import json
 import threading
 from decimal import Decimal
-from typing import Any, cast
+from typing import Any, Self, cast
 
 import httpx
 from PIL import Image
@@ -43,7 +43,7 @@ class SubscriptionUsageTracker:
     """Track observable Codex orchestration tokens without inventing USD cost."""
 
     def __init__(self) -> None:
-        self.total = Decimal("0")
+        self.total = Decimal(0)
         self.ambiguous_timeouts = 0
         self.prompt_tokens = 0
         self.completion_tokens = 0
@@ -84,7 +84,7 @@ class AgentBridgeClient:
             transport=transport,
         )
 
-    def __enter__(self) -> AgentBridgeClient:
+    def __enter__(self) -> Self:
         return self
 
     def __exit__(self, *_: object) -> None:
