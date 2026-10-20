@@ -72,3 +72,5 @@ Keep R2 private. Never log signed URLs, uploaded content, prompts, model respons
 ## License
 
 No license file has been added yet.
+
+Production delivery keeps Vercel secret isolation enabled and distinguishes public configuration from private credentials; see [production delivery](docs/production-delivery.md).

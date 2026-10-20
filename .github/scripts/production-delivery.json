@@ -17,5 +17,11 @@
   "destination": "vercel",
   "vercelProjectId": "prj_stGKNmevpjNfWlCMH8vS1Y3prnFM",
   "vercelProjectName": "paperclean-web",
-  "vercelTeamId": "team_eE2Iv7IMqPOx8ZVN2xNfR2f0"
+  "vercelTeamId": "team_eE2Iv7IMqPOx8ZVN2xNfR2f0",
+  "configNames": [
+    "ASSET_RETENTION_SECONDS",
+    "NEXT_PUBLIC_APP_URL",
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY"
+  ]
 }
