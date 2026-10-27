@@ -1,6 +1,8 @@
 # Keep resolution policy project-local so workstation settings cannot leak into uv.lock.
 exclude-newer = "7 days"
 constraint-dependencies = [
+  "certifi>=2026.10.19",
+  "pillow>=13.0.0",
   "pytest>=9.0.3",
   "mistralai!=2.4.6",
   "guardrails-ai!=0.10.1",
