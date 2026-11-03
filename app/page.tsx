@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   ArrowsLeftRight,
   CheckCircle,
@@ -14,6 +15,8 @@ import { SiteHeader } from "@/components/site-header";
 import { UploadCard } from "@/components/upload-card";
 import { currentAccount } from "@/lib/auth";
 import { featureFlags } from "@/lib/env";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default async function HomePage() {
   const account = await currentAccount();

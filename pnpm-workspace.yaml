@@ -20,7 +20,13 @@ overrides:
   sharp: 0.35.5
   "@next/eslint-plugin-next>fast-glob": npm:tinyglobby@0.2.15
   source-map-js: 1.2.2
+  "minimatch@<11.0.1": 11.0.1
 
-# User-approved exception for this security patch only.
+# User-approved exceptions for these exact security releases.
 minimumReleaseAgeExclude:
   - source-map-js@1.2.2
+  - minimatch@11.0.1
+
+# Keep legacy ESLint consumers compatible with minimatch's named exports.
+patchedDependencies:
+  minimatch@11.0.1: patches/minimatch@11.0.1.patch

@@ -47,6 +47,8 @@ pnpm --dir cloudflare typecheck   # check the Cloudflare orchestrator
 
 ## Notes
 
+The public sitemap lists the homepage and legal page with their canonical URLs.
+
 On rewritten push history, secret scanning scans the full reachable branch history when the previous head is unavailable or no longer an ancestor. Pull-request ranges still require a valid base. Run `python3 .github/scripts/test_secret_scan.py` to verify scan-scope handling.
 
 The processor supports Ruff 0.16 checks. Intentional worker cancellation, malformed-PDF conversion, and HTTP error boundaries retain broad exception handling; HTTP responses and logs expose no exception content.

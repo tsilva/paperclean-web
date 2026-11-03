@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Brand } from "@/components/brand";
 
-export const metadata: Metadata = { title: "Privacy & terms" };
+export const metadata: Metadata = { title: "Privacy & terms", alternates: { canonical: "/legal" } };
 
 export default function LegalPage() {
   return (
