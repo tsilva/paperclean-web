@@ -62,7 +62,7 @@ export default async function HomePage() {
                 className="comparison-image"
                 src={comparisonImage}
                 alt="The same fictional invoice shown as a stained phone photo and a clean verified scan"
-                priority
+                preload
                 sizes="(max-width: 900px) 100vw, 52vw"
               />
               <div className="comparison-handle" aria-hidden="true"><ArrowsLeftRight size={20} weight="bold" /></div>
@@ -92,7 +92,7 @@ export default async function HomePage() {
 
         <footer className="site-footer">
           <p>PaperClean sends page pixels to configured AI providers for cleaning and verification.</p>
-          <div><Link href="/history">History</Link><Link href="/legal">Privacy & terms</Link></div>
+          <div><Link href="/history" prefetch={false}>History</Link><Link href="/legal">Privacy & terms</Link></div>
         </footer>
       </section>
     </main>
