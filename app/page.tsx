@@ -62,7 +62,8 @@ export default async function HomePage() {
                 className="comparison-image"
                 src={comparisonImage}
                 alt="The same fictional invoice shown as a stained phone photo and a clean verified scan"
-                preload
+                loading="eager"
+                fetchPriority="high"
                 sizes="(max-width: 900px) 100vw, 52vw"
               />
               <div className="comparison-handle" aria-hidden="true"><ArrowsLeftRight size={20} weight="bold" /></div>
