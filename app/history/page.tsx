@@ -3,6 +3,7 @@ import { Clock, DownloadSimple, File, LockKey, WarningCircle } from "@phosphor-i
 import Link from "next/link";
 
 import { SiteHeader } from "@/components/site-header";
+import { WalletButton } from "@/components/wallet-button";
 import { currentAccount } from "@/lib/auth";
 import { featureFlags } from "@/lib/env";
 import { listJobs } from "@/lib/jobs/service";
@@ -19,9 +20,13 @@ export default async function HistoryPage() {
     <main className="page-canvas inner-canvas">
       <section className="app-shell inner-shell">
         <SiteHeader
-          balanceCents={account?.walletBalanceCents ?? (previewMode ? 840 : 0)}
           clerkEnabled={featureFlags.clerk}
-          stripeEnabled={featureFlags.stripe}
+          wallet={
+            <WalletButton
+              balanceCents={account?.walletBalanceCents ?? (previewMode ? 840 : 0)}
+              stripeEnabled={featureFlags.stripe}
+            />
+          }
         />
         <div className="page-heading">
           <p className="eyebrow">Your workspace</p>
