@@ -1,17 +1,15 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 import { AccountControl } from "@/components/account-control";
 import { Brand } from "@/components/brand";
-import { WalletButton } from "@/components/wallet-button";
 
 export function SiteHeader({
-  balanceCents,
   clerkEnabled,
-  stripeEnabled,
+  wallet,
 }: {
-  balanceCents: number;
   clerkEnabled: boolean;
-  stripeEnabled: boolean;
+  wallet: ReactNode;
 }) {
   return (
     <header className="site-header">
@@ -19,10 +17,10 @@ export function SiteHeader({
       <nav className="primary-nav" aria-label="Primary navigation">
         <Link href="/#how-it-works">How it works</Link>
         <Link href="/#safety">Safety</Link>
-        <Link href="/history">History</Link>
+        <Link href="/history" prefetch={false}>History</Link>
       </nav>
       <div className="account-actions">
-        <WalletButton balanceCents={balanceCents} stripeEnabled={stripeEnabled} />
+        {wallet}
         <AccountControl clerkEnabled={clerkEnabled} />
       </div>
     </header>

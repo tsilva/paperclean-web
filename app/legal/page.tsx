@@ -20,7 +20,7 @@ export default function LegalPage() {
           <section><h2>Account deletion</h2><p>Clerk manages sign-in and profile controls. Deleting an account disconnects identity access and schedules remaining private objects for deletion. Financial records may be retained where payment, fraud, tax, or dispute obligations require it.</p></section>
           <section><h2>Service terms</h2><p>You are responsible for lawful content and use. PaperClean is provided without a promise that every page can be cleaned. Failed jobs return the safest available status and release unused wallet reservations. Liability, governing-law, business identity, support, and statutory consumer-rights language must be finalized before paid public availability.</p></section>
         </div>
-        <footer className="site-footer"><p>PaperClean · conservative document cleanup</p><div><Link href="/">Home</Link><Link href="/history">History</Link></div></footer>
+        <footer className="site-footer"><p>PaperClean · conservative document cleanup</p><div><Link href="/">Home</Link><Link href="/history" prefetch={false}>History</Link></div></footer>
       </article>
     </main>
   );

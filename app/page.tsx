@@ -6,31 +6,51 @@ import {
   Info,
   LockKey,
   ShieldCheck,
+  Wallet,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import comparisonImage from "@/public/assets/document-cleaning-comparison.png";
 import { SiteHeader } from "@/components/site-header";
 import { UploadCard } from "@/components/upload-card";
+import { WalletButton } from "@/components/wallet-button";
 import { currentAccount } from "@/lib/auth";
 import { featureFlags } from "@/lib/env";
+import { formatUsd } from "@/lib/payments/pricing";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
-export default async function HomePage() {
+async function HomeWallet() {
   const account = await currentAccount();
   const previewMode = !featureFlags.clerk && !featureFlags.database;
   const balanceCents = account?.walletBalanceCents ?? (previewMode ? 840 : 0);
+  return <WalletButton balanceCents={balanceCents} stripeEnabled={featureFlags.stripe} />;
+}
+
+function WalletPlaceholder() {
+  return (
+    <button className="wallet-pill" type="button" disabled aria-label="Loading wallet">
+      <Wallet size={22} weight="regular" aria-hidden="true" />
+      <span aria-hidden="true" style={{ visibility: "hidden" }}>{formatUsd(0)} credit</span>
+    </button>
+  );
+}
+
+export default function HomePage() {
   const liveEnabled = Object.values(featureFlags).every(Boolean);
 
   return (
     <main className="page-canvas">
       <section className="app-shell">
         <SiteHeader
-          balanceCents={balanceCents}
           clerkEnabled={featureFlags.clerk}
-          stripeEnabled={featureFlags.stripe}
+          wallet={
+            <Suspense fallback={<WalletPlaceholder />}>
+              <HomeWallet />
+            </Suspense>
+          }
         />
 
         <div className="hero-grid">
@@ -62,7 +82,8 @@ export default async function HomePage() {
                 className="comparison-image"
                 src={comparisonImage}
                 alt="The same fictional invoice shown as a stained phone photo and a clean verified scan"
-                priority
+                loading="eager"
+                fetchPriority="high"
                 sizes="(max-width: 900px) 100vw, 52vw"
               />
               <div className="comparison-handle" aria-hidden="true"><ArrowsLeftRight size={20} weight="bold" /></div>
@@ -92,7 +113,7 @@ export default async function HomePage() {
 
         <footer className="site-footer">
           <p>PaperClean sends page pixels to configured AI providers for cleaning and verification.</p>
-          <div><Link href="/history">History</Link><Link href="/legal">Privacy & terms</Link></div>
+          <div><Link href="/history" prefetch={false}>History</Link><Link href="/legal">Privacy & terms</Link></div>
         </footer>
       </section>
     </main>
