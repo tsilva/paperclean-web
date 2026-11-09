@@ -12,7 +12,8 @@ export function Brand({ compact = false }: { compact?: boolean }) {
         alt=""
         width={compact ? 38 : 44}
         height={compact ? 38 : 44}
-        priority
+        loading="eager"
+        fetchPriority="low"
       />
       <span className="brand-name">
         Paper<span>Clean</span>
