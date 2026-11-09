@@ -2,16 +2,16 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe } from "@stripe/stripe-js/pure";
 import { CheckCircle, CreditCard, Wallet, X } from "@phosphor-icons/react";
 
 import { formatUsd, WALLET_PACKS_CENTS } from "@/lib/payments/pricing";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
-const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
 
 export function WalletButton({ balanceCents, stripeEnabled }: { balanceCents: number; stripeEnabled: boolean }) {
   const [open, setOpen] = useState(false);
+  const [stripePromise, setStripePromise] = useState<ReturnType<typeof loadStripe> | null>(null);
   const [selected, setSelected] = useState<number>(1_000);
   const [clientSecret, setClientSecret] = useState<string>();
   const [error, setError] = useState<string>();
@@ -46,7 +46,12 @@ export function WalletButton({ balanceCents, stripeEnabled }: { balanceCents: nu
 
   return (
     <>
-      <button className="wallet-pill" type="button" onClick={() => setOpen(true)}>
+      <button className="wallet-pill" type="button" onClick={() => {
+        if (stripeEnabled && publishableKey && !stripePromise) {
+          setStripePromise(loadStripe(publishableKey));
+        }
+        setOpen(true);
+      }}>
         <Wallet size={22} weight="regular" />
         <span>{formatUsd(balanceCents)} credit</span>
       </button>
