@@ -60,6 +60,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={`${uiInter.variable} ${inter.variable}`}>
       <body>
+        <picture className="site-backdrop">
+          <source srcSet="/assets/ambient-blue-backdrop-screen.avif" type="image/avif" />
+          <img src="/assets/ambient-blue-backdrop-screen.webp" alt="" fetchPriority="low" loading="lazy" />
+        </picture>
         <AppProviders>{children}</AppProviders>
         <GoogleAnalyticsTag />
       </body>
