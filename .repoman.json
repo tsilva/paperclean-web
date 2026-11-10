@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "exceptions": {
+    "dependencies.releaseAge": {
+      "npm:@next/env@16.4.5#age": "Audited Next.js security release from vercel/next.js v16.4.5. Registry integrity, signatures, and provenance verified.",
+      "npm:@next/eslint-plugin-next@16.4.5#age": "Audited Next.js security release from vercel/next.js v16.4.5. Registry integrity, signatures, and provenance verified.",
+      "npm:@next/swc-darwin-arm64@16.4.5#age": "Audited Next.js security release from vercel/next.js v16.4.5. Registry integrity, signatures, and provenance verified.",
+      "npm:@next/swc-darwin-x64@16.4.5#age": "Audited Next.js security release from vercel/next.js v16.4.5. Registry integrity, signatures, and provenance verified.",
+      "npm:@next/swc-linux-arm64-gnu@16.4.5#age": "Audited Next.js security release from vercel/next.js v16.4.5. Registry integrity, signatures, and provenance verified.",
+      "npm:@next/swc-linux-arm64-musl@16.4.5#age": "Audited Next.js security release from vercel/next.js v16.4.5. Registry integrity, signatures, and provenance verified.",
+      "npm:@next/swc-linux-x64-gnu@16.4.5#age": "Audited Next.js security release from vercel/next.js v16.4.5. Registry integrity, signatures, and provenance verified.",
+      "npm:@next/swc-linux-x64-musl@16.4.5#age": "Audited Next.js security release from vercel/next.js v16.4.5. Registry integrity, signatures, and provenance verified.",
+      "npm:@next/swc-win32-arm64-msvc@16.4.5#age": "Audited Next.js security release from vercel/next.js v16.4.5. Registry integrity, signatures, and provenance verified.",
+      "npm:@next/swc-win32-x64-msvc@16.4.5#age": "Audited Next.js security release from vercel/next.js v16.4.5. Registry integrity, signatures, and provenance verified.",
+      "npm:eslint-config-next@16.4.5#age": "Audited Next.js security release from vercel/next.js v16.4.5. Registry integrity, signatures, and provenance verified.",
+      "npm:next@16.4.5#age": "Audited Next.js security release from vercel/next.js v16.4.5. Registry integrity, signatures, and provenance verified."
+    }
+  }
+}

@@ -20,7 +20,11 @@ body {
   min-width: 320px;
   min-height: 100vh;
   color: var(--ink);
-  background: #06152d url("/assets/ambient-blue-backdrop.png") center / cover fixed no-repeat;
+  background: #06152d url("/assets/ambient-blue-backdrop-screen.webp") center / cover fixed no-repeat;
+  background-image: image-set(
+    url("/assets/ambient-blue-backdrop-screen.avif") type("image/avif"),
+    url("/assets/ambient-blue-backdrop-screen.webp") type("image/webp")
+  );
   font-family: var(--font-inter), Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -132,8 +136,9 @@ button { color: inherit; }
 .payment-note p { margin: 0; }
 
 .comparison-column { display: flex; flex-direction: column; align-items: flex-end; min-width: 0; }
-.verified-badge { margin: 0 10px 10px 0; padding: 8px 13px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #dce0e4; border-radius: 13px; color: var(--green); background-color: rgba(255, 255, 255, 0.45); font-size: 14px; font-weight: 650; }
+.verified-badge { margin: 0 10px 10px 0; padding: 8px 13px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #dce0e4; border-radius: 13px; color: #087844; background-color: rgba(255, 255, 255, 0.45); font-size: 14px; font-weight: 650; }
 .comparison-card { position: relative; width: 100%; overflow: hidden; border: 1px solid #d5d9dd; border-radius: 20px; background-color: #fff; box-shadow: 0 12px 32px rgba(12, 35, 65, 0.06); }
+.comparison-picture { display: block; }
 .comparison-image { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
 .comparison-label { position: absolute; z-index: 2; top: 18px; padding: 8px 15px; border-radius: 12px; font-size: 13px; font-weight: 700; }
 .before-label { left: 18px; color: white; background-color: #06152d; }
