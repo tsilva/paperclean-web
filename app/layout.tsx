@@ -1,11 +1,19 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 
 import { AppProviders } from "@/components/app-providers";
 import "@/app/globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap", preload: false });
+const uiInter = localFont({
+  src: "./fonts/inter-ui-latin.woff2",
+  variable: "--font-inter-ui",
+  weight: "100 900",
+  adjustFontFallback: false,
+  declarations: [{ prop: "unicode-range", value: "U+0020-007E,U+00A0,U+00B7,U+00C0-00FF,U+2013-2014,U+2018-2019,U+201C-201D,U+2022,U+2026" }],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://paperclean.tsilva.eu"),
@@ -50,7 +58,7 @@ function GoogleAnalyticsTag() {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${uiInter.variable} ${inter.variable}`}>
       <body>
         <AppProviders>{children}</AppProviders>
         <GoogleAnalyticsTag />
