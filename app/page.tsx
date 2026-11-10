@@ -8,11 +8,10 @@ import {
   ShieldCheck,
   Wallet,
 } from "@phosphor-icons/react/dist/ssr";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import comparisonImage from "@/public/assets/document-cleaning-comparison.png";
+import { LandingComparison } from "@/components/landing-comparison";
 import { SiteHeader } from "@/components/site-header";
 import { UploadCard } from "@/components/upload-card";
 import { WalletButton } from "@/components/wallet-button";
@@ -78,14 +77,7 @@ export default function HomePage() {
             <div className="comparison-card">
               <div className="comparison-label before-label">Before</div>
               <div className="comparison-label after-label">After</div>
-              <Image
-                className="comparison-image"
-                src={comparisonImage}
-                alt="The same fictional invoice shown as a stained phone photo and a clean verified scan"
-                loading="eager"
-                fetchPriority="high"
-                sizes="(max-width: 900px) 100vw, 52vw"
-              />
+              <LandingComparison />
               <div className="comparison-handle" aria-hidden="true"><ArrowsLeftRight size={20} weight="bold" /></div>
               <div className="verification-row">
                 {["Text matches", "Numbers match", "Layout verified", "Colors neutralized", "Page deskewed"].map((item) => (
