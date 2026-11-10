@@ -38,7 +38,7 @@ describe("dependency security floors", () => {
   it("uses patched Nano ID and preserves zero-size generator behavior", async () => {
     const { customAlphabet } = await import("nanoid");
     expect(versionTuple(installedVersion(requireFromRoot, "nanoid"))).toEqual([
-      3, 3, 18,
+      6, 0, 2,
     ]);
     expect(customAlphabet("abcdef", 0)()).toBe("");
     expect(customAlphabet("abcdef", 12)()).toMatch(/^[a-f]{12}$/);
