@@ -105,7 +105,7 @@ export default function HomePage() {
 
         <footer className="site-footer">
           <p>PaperClean sends page pixels to configured AI providers for cleaning and verification.</p>
-          <div><Link href="/history" prefetch={false}>History</Link><Link href="/legal">Privacy & terms</Link></div>
+          <div><Link href="/history" prefetch={false}>History</Link><Link href="/legal" prefetch={false}>Privacy & terms</Link></div>
         </footer>
       </section>
     </main>
