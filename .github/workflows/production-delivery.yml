@@ -3,8 +3,6 @@ name: Production delivery
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - .github/workflows/production-delivery.yml
   workflow_dispatch:
     inputs:
       stage_prebuilt:
@@ -33,18 +31,19 @@ jobs:
       id-token: write
     uses: tsilva/.github/.github/workflows/production-delivery.yml@48a4449de4ac5f4d5e14343f70fe5fc57bc2cd74
     with:
-      sync_only: ${{ inputs.stage_prebuilt }}
+      sync_only: true
     secrets:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
-  stage_prebuilt:
+  publish:
     needs: deliver
-    if: github.ref == 'refs/heads/main' && inputs.stage_prebuilt
+    if: github.ref == 'refs/heads/main'
     uses: tsilva/.github/.github/workflows/vercel-prebuilt.yml@e11e1d0beb80276055c14630c2bc1e9515a94eaa
     with:
       project_id: prj_stGKNmevpjNfWlCMH8vS1Y3prnFM
       project_name: paperclean-web
       production_domains: '["paperclean.tsilva.eu","paperclean-web.vercel.app"]'
       public_environment: '["NEXT_PUBLIC_APP_URL","NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY","NEXT_PUBLIC_GA_MEASUREMENT_ID","NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY"]'
+      promote: ${{ !inputs.stage_prebuilt }}
     secrets:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
