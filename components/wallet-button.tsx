@@ -1,17 +1,18 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js/pure";
+import dynamic from "next/dynamic";
+import { useCallback, useEffect, useState } from "react";
+import type { Stripe } from "@stripe/stripe-js";
 import { CheckCircle, CreditCard, Wallet, X } from "@phosphor-icons/react";
 
 import { formatUsd, WALLET_PACKS_CENTS } from "@/lib/payments/pricing";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+const WalletCheckout = dynamic(() => import("./wallet-checkout").then((module) => module.WalletCheckout));
 
 export function WalletButton({ balanceCents, stripeEnabled }: { balanceCents: number; stripeEnabled: boolean }) {
   const [open, setOpen] = useState(false);
-  const [stripePromise, setStripePromise] = useState<ReturnType<typeof loadStripe> | null>(null);
+  const [stripePromise, setStripePromise] = useState<Promise<Stripe | null> | null>(null);
   const [selected, setSelected] = useState<number>(1_000);
   const [clientSecret, setClientSecret] = useState<string>();
   const [error, setError] = useState<string>();
@@ -42,13 +43,14 @@ export function WalletButton({ balanceCents, stripeEnabled }: { balanceCents: nu
     return payload.clientSecret;
   }, [selected]);
 
-  const options = useMemo(() => ({ fetchClientSecret }), [fetchClientSecret]);
-
   return (
     <>
       <button className="wallet-pill" type="button" onClick={() => {
+        // Warm the checkout UI while the user chooses an amount. A failed
+        // speculative load is handled by the actual checkout boundary later.
+        void import("./wallet-checkout").catch(() => {});
         if (stripeEnabled && publishableKey && !stripePromise) {
-          setStripePromise(loadStripe(publishableKey));
+          setStripePromise(import("@stripe/stripe-js/pure").then(({ loadStripe }) => loadStripe(publishableKey)));
         }
         setOpen(true);
       }}>
@@ -102,9 +104,7 @@ export function WalletButton({ balanceCents, stripeEnabled }: { balanceCents: nu
                 </button>
               </>
             ) : stripePromise ? (
-              <EmbeddedCheckoutProvider stripe={stripePromise} options={options}>
-                <EmbeddedCheckout />
-              </EmbeddedCheckoutProvider>
+              <WalletCheckout stripe={stripePromise} fetchClientSecret={fetchClientSecret} />
             ) : null}
           </section>
         </div>

@@ -24,6 +24,13 @@ Native Infisical syncs are disabled after this workflow has successfully replace
 
 Production delivery classifies public settings through the pinned `configNames` list; all other allowlisted values remain write-only Secrets. Vercel’s Require Separate Values policy stays enabled: real Production secrets must differ from non-production values. Existing variables are updated by their exact Production IDs. A legacy Secret explicitly listed as public configuration is replaced only in Production because Vercel cannot convert it to Config in place; Preview and Development rows are preserved. Provider responses and credential values are never logged. A failed sync holds deployment; rerun delivery after fixing the named key at its source.
 
+## Frontend startup
+
+The wallet button and amount chooser are available without loading the checkout
+UI. Checkout components warm when the wallet opens; Stripe initialization still
+requires the existing configuration and wallet interaction. Session creation and
+confirmation remain in their existing authenticated flow.
+
 ## Staging a prebuilt deployment
 
 Use **Actions → Production delivery → Run workflow → main** with **stage_prebuilt** selected to build and verify a Vercel deployment while production domains keep serving the live release. Leave the option clear for a production delivery.
