@@ -71,7 +71,7 @@ jobs:
         github.event.workflow_run.path == '.github/workflows/ci.yml' &&
         github.event.workflow_run.repository.id == github.repository_id &&
         github.event.workflow_run.head_repository.id == github.repository_id))
-    uses: tsilva/.github/.github/workflows/vercel-prebuilt.yml@e11e1d0beb80276055c14630c2bc1e9515a94eaa
+    uses: tsilva/.github/.github/workflows/vercel-prebuilt.yml@a20dac1368cedf94bf81e0af5eb38f844a924240
     with:
       project_id: prj_stGKNmevpjNfWlCMH8vS1Y3prnFM
       project_name: paperclean-web
