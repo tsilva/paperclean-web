@@ -59,7 +59,10 @@ async function resolveAutoPortArgs(command, args) {
 }
 
 async function main() {
-  const [command, ...rawArgs] = process.argv.slice(2);
+  const supplied = process.argv.slice(2);
+  const preview = supplied[0] === "--preview";
+  if (preview) supplied.shift();
+  const [command, ...rawArgs] = supplied;
 
   if (!command) {
     console.error("Usage: node scripts/dev-server.mjs <command> [...args]");
@@ -68,6 +71,7 @@ async function main() {
 
   const args = await resolveAutoPortArgs(command, rawArgs);
   const environment = { ...process.env };
+  if (preview) for (const key of ["ASSET_RETENTION_SECONDS", "BWS_ACCESS_TOKEN", "CLERK_SECRET_KEY", "CLERK_WEBHOOK_SIGNING_SECRET", "CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_ORCHESTRATOR_URL", "CLOUDFLARE_ORIGIN_SECRET", "DATABASE_URL", "INFISICAL_CLIENT_SECRET", "INFISICAL_TOKEN", "INFISICAL_UNIVERSAL_AUTH_ACCESS_TOKEN", "INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET", "JOB_CALLBACK_SECRET", "JOB_DISPATCH_SECRET", "NEXT_PUBLIC_APP_URL", "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY", "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY", "PAPERCLEAN_CONVERSION_ENABLED", "R2_ACCESS_KEY_ID", "R2_BUCKET", "R2_SECRET_ACCESS_KEY", "STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET"]) environment[key] = "";
   if (command === "next" && args[0] === "dev") {
     const portIndex = args.findIndex((arg) => arg === "--port" || arg === "-p");
     const assignedPort = portIndex >= 0

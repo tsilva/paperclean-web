@@ -8,6 +8,8 @@ Before every task in this repository, use the `$specs-author` skill to read the 
 - Never edit `SPECS.md` from inference. Propose the exact change, explain why it reflects stakeholder intent, and edit the file only after the user explicitly approves that exact change.
 - Keep `SPECS.md` complete, concise, and compacted. It must contain stakeholder intent rather than implementation, architecture, operations, or transient project detail.
 
-## Secrets
+## Service access
 
-Default dev fetches the fixed `paperclean-web`, Development `/`, project via the saved human Infisical login. `pnpm preview:local` clears service credentials without fetching any secrets and never dispatches documents. Production uses `paperclean-web-production`, Production `/`; Clerk and Stripe credentials and webhook signing secrets are managed there. Preserve the existing Vercel conversion kill-switch. Keep Cloudflare processor credentials separate until explicitly verified there. Never log secrets, signed URLs or document data, reset a database, dispatch a job or charge a wallet during migration verification. Preserve existing processor edits. Run `test:secrets`, app tests, lint, typecheck and build.
+Normal commands use the configured server environment. Keep credentials server-only and out of logs, browser bundles and committed files. Preserve separate Production delivery and all transport permission checks. Read-only migration audits must inspect only permissions and the migration ledger; never apply migrations or read application rows. Provisioning requires explicit administrative review before credential reads or infrastructure changes.
+
+Preserve the conversion kill-switch, separate Cloudflare processor credentials and hosted Production Clerk/Stripe/webhook bindings. Local verification must not dispatch documents, reset databases, create jobs or charge wallets.

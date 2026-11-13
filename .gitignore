@@ -21,3 +21,4 @@ processor/src/*.egg-info
 .next-dev-*/
 
 /.internal/
+/.runbox.yaml
