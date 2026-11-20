@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   audit:
-    uses: tsilva/.github/.github/workflows/lighthouse-ci.yml@1eb40277dd97b1c617d4ae53aef7bf21f5dd1dd3
+    uses: tsilva/.github/.github/workflows/lighthouse-ci.yml@ba3373604c7234b7bcbdfb0acd23d027b29196f2
     with:
       url: "https://paperclean.tsilva.eu/"
       sample_timings: true
